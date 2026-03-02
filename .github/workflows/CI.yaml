@@ -13,16 +13,16 @@ jobs:
       cache-key: ${{ steps.cache.outputs.cache-key }}
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Cache Node Modules
         id: cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -44,15 +44,15 @@ jobs:
     needs: Cache
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Restore Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -97,7 +97,7 @@ jobs:
     needs: Cache
     steps:
     - name: Checkout code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Gitleaks Scan
       run: |
@@ -106,7 +106,7 @@ jobs:
 
     - name: Upload Gitleaks Report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Gitleaks-report
         path: gitleaks.json
@@ -120,7 +120,7 @@ jobs:
     needs: Cache
     steps:
     - name: Checkout the code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Run Nodejsscan Scan
       id: njsscan
@@ -131,7 +131,7 @@ jobs:
 
     - name: Upload SARIF report
       if: always()
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: Nodejsscan-report
         path: nodejsscan.sarif
@@ -147,7 +147,7 @@ jobs:
       image: semgrep/semgrep:latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Run Semgrep Scan
         run: semgrep scan --config auto --json-output semgrep.json
@@ -155,7 +155,7 @@ jobs:
 
       - name: Upload Semgrep Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Semgrep-report
           path: semgrep.json
@@ -168,15 +168,15 @@ jobs:
     needs: Cache
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set Up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22
 
       - name: Restore Cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: |
             node_modules
@@ -198,7 +198,7 @@ jobs:
 
       - name: Upload Retire.js Report
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Retirejsscan-report
           path: retirejsscan.json    
@@ -212,7 +212,7 @@ jobs:
     needs: [GitLeaks, Nodejsscan, Semgrep, Retirejsscan]
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up environment variables
         id: set_env
@@ -260,7 +260,7 @@ jobs:
     needs: [Trivy]
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download GitLeaks Report
         uses: actions/download-artifact@v4
